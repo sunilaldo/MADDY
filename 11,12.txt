@@ -1,0 +1,65 @@
+PROGRAM 11 
+
+Step 1: Verify Docker Installation 
+docker –version 
+Step 2: Pull the Hello World Container 
+docker pull hello-world 
+Step 3: Run the Hello World Container 
+docker run hello-world 
+Step 4: Display the container 
+docker ps 
+Step 5: Pull the Ubuntu Container 
+docker pull ubuntu 
+Step 6: Run a Command Using the Ubuntu Image 
+docker run ubuntu echo "Hello MAD Lab" 
+Step 7: View the Runned Containers 
+docker inspect container_id 
+Step 8: View Downloaded Images 
+docker images 
+Step 9: Start an Interactive Ubuntu Container 
+docker run -it Ubuntu 
+ls 
+pwd
+
+
+
+
+
+PROGRAM 12 
+
+Step 1: Install Google Cloud SDK (gcloud CLI) 
+Step 2: gcloud init 
+Step 3: gcloud projects create engine-ex12-2025 
+Step 4: gcloud config set project engine-ex12-2025 
+Step 5: gcloud app create --region=us-central 
+Step 6: gcloud app deploy 
+Step 7: gcloud app browse 
+Main.py: 
+from flask import Flask, request 
+app = Flask( name ) 
+@app.route('/') 
+def form(): 
+return ''' 
+<form action="/add" method="post"> 
+<input type="text" name="a"> + 
+<input type="text" name="b"> 
+<input type="submit"> 
+</form> 
+''' 
+@app.route('/add', methods=['POST']) 
+def add(): 
+try: 
+a = int(request.form['a']) 
+b = int(request.form['b']) 
+return f'The sum is: {a + b}' 
+except Exception as e: 
+return f'Error: {e}'' 
+app.yaml: 
+runtime: python39 
+entrypoint: gunicorn -b :$PORT main:app 
+automatic_scaling: 
+max_instances: 1 
+requirements.txt: 
+Flask==2.2.5 
+Werkzeug==2.2.3 
+gunicorn==20.1.0
