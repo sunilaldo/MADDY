@@ -1,0 +1,97 @@
+activity_main.xml
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="vec"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter text"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_alignStart="@id/editText1"
+        android:layout_marginTop="24dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_toEndOf="@id/button1"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Show" />
+
+</RelativeLayout>
+
+
+MainActivity.java
+
+package com.example.myapplication51;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.*;
+import android.view.View;
+import java.io.*;
+
+public class MainActivity extends Activity {
+
+    EditText editText;
+    TextView textView;
+    final String FILE_NAME = "file1.txt";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView1);
+        editText = findViewById(R.id.editText1);
+        Button saveBtn = findViewById(R.id.button1);
+        Button showBtn = findViewById(R.id.button2);
+
+        saveBtn.setOnClickListener(v -> {
+            try (FileOutputStream fout = openFileOutput(FILE_NAME, MODE_APPEND)) {
+                fout.write(editText.getText().toString().getBytes());
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        showBtn.setOnClickListener(v -> {
+            try (FileInputStream fin = openFileInput(FILE_NAME)) {
+                StringBuilder builder = new StringBuilder();
+                int c;
+                while ((c = fin.read()) != -1) {
+                    builder.append((char) c);
+                }
+                textView.setText(builder.toString());
+                Toast.makeText(this, "File read successfully", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+}
