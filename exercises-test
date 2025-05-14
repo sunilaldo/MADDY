@@ -1,0 +1,12 @@
+1. Install and configure Java Development Kit (JDK), android studio and 
+android SDK. 7 
+2. Develop an application that uses GUI components, fonts and colours. 13 
+3. Listeners, Event handling and push  notification in Android. 17 
+4. Build a simple native calculator application to do simple arithmetic 
+operations. 21 
+5. Create animations and graphical primitives in Android environment. 32
+8. Implement an android application that writes data into the SD card 
+and makes use of Notification Manager. 54
+11.Creating and executing your first container using docker
+12.Install google appengine, create "helloworld" app and other simple web 
+application using python.
